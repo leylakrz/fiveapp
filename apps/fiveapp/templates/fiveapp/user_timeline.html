@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load fiveapp_tags %}
+
+{% block title %}FiveApp{% endblock %}
+
+{% block email %}{{ user.email|email_format }}{% endblock %}
+
+{% block nav %}{% custom_nav user.id %}{% endblock %}
+
+
+{% block body %}
+{% endblock %}

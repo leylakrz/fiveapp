@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block style %}{% endblock %}
+</head>
+<body>
+<header style="background: cornsilk;">
+    <h1>FiveApp</h1>
+    <p>Welcome, {% block email %}{% endblock %}</p>
+    {% block nav %}{% endblock %}
+</header><br>
+{% block body %}{% endblock %}
+{% block script %}{% endblock %}
+</body>
+</html>

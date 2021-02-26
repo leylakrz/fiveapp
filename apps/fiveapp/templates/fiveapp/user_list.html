@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load fiveapp_tags %}
+
+{% block title %}All Users{% endblock %}
+
+{% block style %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <style>
+        .sug_parent {
+            position: relative;
+        }
+
+        .sug {
+            position: absolute;
+            z-index: 99;
+            overflow-y: auto;
+            {#max-height: 50px;#}
+            margin-left: 43px;
+        }
+
+        .sug div {
+            border: solid 1px black;
+            border-top: 0;
+            width: 162px;
+
+            background: white;
+        }
+
+        .sug div:hover {
+            cursor: pointer;
+            background: cornsilk;
+        }
+    </style>
+{% endblock %}
+
+{% block email %}{{ user.email|email_format }}{% endblock %}
+
+{% block nav %}{% custom_nav user.id %}{% endblock %}
+
+
+{% block body %}
+    <div class="sug_parent">
+        <form autocomplete="off" action="" method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input type="submit" VALUE="Search">
+            <a href="{% url 'users' user.id %}">
+                <button type="button">Refresh</button>
+            </a>
+        </form>
+        <div class="sug"></div>
+    </div>
+
+
+    {% if user_list %}
+        <p>total users: {{ count }}</p>
+        <ul>
+            {% for user_obj in user_list %}
+                <li><a href="{% url 'profile' user.id user_obj.id %}">{{ user_obj.email }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        no user found.
+    {% endif %}
+    <span></span>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+
+        var suggestions = document.querySelector('.sug');
+
+        var email = document.getElementsByTagName('input')[1];
+        email.addEventListener('input', (event) => {
+            if (event.target.value) {
+                $.getJSON('http://127.0.0.1:8000/emails/?input=' + event.target.value, function (data) {
+
+                    clear_sug()
+
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            add_sug(data[i]['email'])
+                        }
+
+                        {#if (data.length > 2) {#}
+                        {#    console.log(data.length)#}
+                        {#    suggestions.style.borderBottom = 'solid 2px black'#}
+                        {# } else {#}
+                        {#    suggestions.style.borderBottom = '0'#}
+                        {# }#}
+                    } else {
+                        add_sug('no result.')
+                    }
+
+                })
+            } else {
+                clear_sug()
+            }
+        })
+
+        function clear_sug() {
+            while (suggestions.firstChild) {
+                suggestions.removeChild(suggestions.firstChild);
+            }
+        }
+
+        function add_sug(content) {
+            var div = document.createElement('DIV')
+            div.innerText = content
+            suggestions.appendChild(div)
+
+            if (content !== 'no result.') {
+                div.addEventListener('click', (event) => {
+                    email.value = content
+                })
+            }
+        }
+
+    </script>
+{% endblock %}

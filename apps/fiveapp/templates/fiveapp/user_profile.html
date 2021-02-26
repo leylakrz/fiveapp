@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load fiveapp_tags %}
+
+{% block title %}{{ profile_user.email }}{% endblock %}
+
+{% block email %}{{ user.email|email_format }}{% endblock %}
+
+{% block nav %}{% custom_nav user.id %}{% endblock %}
+
+
+{% block body %}
+    <p>{{ profile_user.email }}</p>
+    <p>Joined: {{  profile_user.register_time|custom_time_format }} Ago</p>
+    Posts:
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+            <li><a href="{% url 'post' user.id post.slug %}">{{ post.title }} -
+                {{ post.publish_date|custom_time_format }} Ago</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        no post.
+    {% endif %}
+{% endblock %}
