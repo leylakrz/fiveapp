@@ -1,0 +1,7 @@
+<nav>
+    <a href="{% url 'timeline' user_id %}">Timeline</a> |
+    <a href="{% url 'profile' user_id user_id %}">My Profile</a> |
+    <a href="{% url 'new_post' user_id %}">New Post</a> |
+    <a href="{% url 'users' user_id %}">All Users</a> |
+    <a href="{% url 'login' %}">Log Out</a>
+</nav>

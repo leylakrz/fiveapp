@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load user_tags %}
+{% load messenger_tags %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block email %}{{ user.email|email_format }}{% endblock %}
+
+{% block nav %}{% custom_nav user.id %}{% endblock %}
+
+
+{% block body %}
+    <h2>{{ title }} Of {{ profile_user_email }}</h2>
+    {% if user_objects %}
+        <ul>
+            {% for user_obj in user_objects %}
+                <li><a href="{% url 'profile' user.id user_obj.id %}">{{ user_obj }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No Users.
+    {% endif %}
+{% endblock %}

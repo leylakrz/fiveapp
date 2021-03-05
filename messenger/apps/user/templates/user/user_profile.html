@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load user_tags %}
+{% load messenger_tags %}
+
+{% block title %}{{ profile_user.email }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user/user_profile.css' %}">
+{% endblock %}
+
+{% block email %}{{ user.email|email_format }}{% endblock %}
+
+{% block nav %}{% custom_nav user.id %}{% endblock %}
+
+
+{% block body %}
+    <p>{{ profile_user.email }}</p>
+
+    <div class="follow_stat">
+        <a href="{% url "follow_list" user.id profile_user.id %}?f=er">{{ profile_user.id|follower_count }}</a>
+        <a href="{% url "follow_list" user.id profile_user.id %}?f=ing">{{ profile_user.id|following_count }}</a>
+    </div><br>
+
+    {% if profile_user.id != user.id %}
+        {% if not following_status %}
+            <a href="{% url 'follow' user.id profile_user.id %}">Follow</a>
+        {% else %}
+            <a href="{% url 'unfollow' user.id profile_user.id %}">Following</a>
+        {% endif %}
+    {% endif %}
+    <p>Joined: {{ profile_user.age|custom_time_format }} Ago</p>
+    Posts:
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li><a href="{% url 'post' user.id post.slug %}">{{ post.title }} -
+                    {{ post.age|custom_time_format }} Ago</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        no post.
+    {% endif %}
+{% endblock %}
