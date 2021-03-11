@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.timezone import now
 
-from apps.user.models import User
+from apps.member.models import Member
 from apps.post.models import Post
 
 
 class Comment(models.Model):
-    publisher = models.ForeignKey(User, help_text='Publisher', on_delete=models.DO_NOTHING)
-    post = models.ForeignKey(Post, help_text='Post', on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Member, verbose_name='Publisher', on_delete=models.DO_NOTHING)
+    post = models.ForeignKey(Post, verbose_name='Post', on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=200)
     content = models.TextField('Content')
     publish_date = models.DateTimeField('Publish Date')

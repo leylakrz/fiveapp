@@ -1,14 +1,8 @@
 from django import template
-from django.utils.timezone import now
 
 from common.utilities import seconds_to_time_unit
 
 register = template.Library()
-
-
-@register.inclusion_tag('nav.html')
-def custom_nav(user_id):
-    return {'user_id': user_id}
 
 
 @register.filter

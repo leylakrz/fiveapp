@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load messenger_tags %}
+
+{% block title %}FiveApp{% endblock %}
+
+
+{% block body %}
+    <ul>
+        {% for post in posts %}
+            <li><a href="{% url 'post' post.slug %}">{{ post.title }}</a><br>
+                by <a href="{% url 'profile' post.publisher.id %}">{{ post.publisher.email }}</a><br>
+                {{ post.age|custom_time_format }} Ago</li><br>
+        {% endfor %}
+    </ul>
+{% endblock %}

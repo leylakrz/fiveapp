@@ -1,49 +1,45 @@
+from django.conf.urls import url
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse
+from django.views.generic import UpdateView, DeleteView
 from django.views.generic.base import View
 
 from apps.post.froms import *
-from apps.user.models import User
 
 
-class NewPostView(View):
-    def get(self, request, current_user):
+class NewPostView(LoginRequiredMixin, View):
+    def get(self, request):
         form = NewPostForm()
-        current_user = User.objects.get(pk=current_user)
-        return render(request, 'post/post_new.html', {
-            'form': form,
-            'user': current_user})
+        return render(request, 'post/post_new.html', {'form': form, })
 
-    def post(self, request, current_user):
+    def post(self, request):
         form = NewPostForm(request.POST)
-        current_user = User.objects.get(pk=current_user)
         if form.is_valid():
             new_post = Post(title=form.cleaned_data['title'],
-                            publisher=current_user,
+                            publisher=request.user,
                             content=form.cleaned_data['content'])
             new_post.save()
-            return redirect('timeline', current_user=current_user.id)
+            return redirect('post', slug=new_post.slug)
         else:
             return render(request, 'post/post_new.html', {
                 'form': form,
-                'user': current_user,
                 'message': 'data is not valid'})
 
 
-class PostDetail(View):
-    def get(self, request, current_user, slug):
+class PostDetail(LoginRequiredMixin, View):
+    def get(self, request, slug):
         post = Post.objects.get(slug=slug)
-        current_user = User.objects.get(pk=current_user)
         comments = Comment.objects.filter(post=post)
         comment_form = CommentForm()
         return render(request, 'post/post_detail.html', {'post': post,
-                                                         'user': current_user,
                                                          'comment_form': comment_form,
                                                          'comments': comments})
 
-    def post(self, request, current_user, slug):
-        current_user = User.objects.get(pk=current_user)
+    def post(self, request, slug):
+        current_user = request.user
         post = Post.objects.get(slug=slug)
 
         if request.POST.get('like', False):
@@ -61,7 +57,31 @@ class PostDetail(View):
             comment_form = CommentForm()
         comments = Comment.objects.filter(post=post)
 
+        if request.POST.get('delete_comment', False):
+            Comment.objects.get(pk=request.GET.get('comment')).delete()
+
         return render(request, 'post/post_detail.html', {'post': post,
-                                                         'user': current_user,
                                                          'comment_form': comment_form,
                                                          'comments': comments})
+
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content']
+    template_name = 'post/post_update.html'
+
+
+class PostDelete(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'post/post_delete.html'
+
+    def get_success_url(self):
+        return reverse('profile', args=[self.object.publisher.id])
+
+
+class PostLikedList(LoginRequiredMixin, View):
+    def get(self, request, slug):
+        post_ = Post.objects.get(slug=slug)
+        return render(request, 'post/post_liked_list.html', {'liked_list': post_.liked.all(),
+                                                             'title': post_.title,
+                                                             'slug': slug})

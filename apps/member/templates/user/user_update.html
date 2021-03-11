@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Information{% endblock %}
+
+
+{% block body %}
+<p>{{ user.get_username }}</p>
+<form method="post">
+    {% csrf_token %}
+    <table>{{ form.as_table }}</table>
+    <input type="submit" value="Update">
+</form>
+<a href="{% url 'update_info' user.id %}">
+    <button type="button">Refresh</button>
+</a>
+{% endblock %}

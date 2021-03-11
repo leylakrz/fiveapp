@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
-{% load post_tags %}
-{% load messenger_tags %}
 
 {% block title %}New Post{% endblock %}
-
-{% block email %}{{ user.email|email_format }}{% endblock %}
-
-{% block nav %}{% custom_nav user.id %}{% endblock %}
 
 
 {% block body %}
@@ -18,7 +12,7 @@
                 <td></td>
                 <td>
                     <input type="submit" VALUE="Add">
-                    <a href="{% url 'new_post' user.id %}"><button type="button">Refresh</button></a>
+                    <a href="{% url 'new_post' %}"><button type="button">Refresh</button></a>
                 </td>
             </tr>
         </table>

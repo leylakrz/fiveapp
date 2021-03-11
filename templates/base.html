@@ -10,9 +10,17 @@
 <body>
 <header style="background: cornsilk;">
     <h1>FiveApp</h1>
-    <p>Welcome, {% block email %}{% endblock %}</p>
-    {% block nav %}{% endblock %}
-</header><br>
+    <p>Welcome, {{ user.get_username }}</p>
+
+    <nav>
+        <a href="{% url 'timeline' %}">Timeline</a> |
+        <a href="{% url 'profile' user.id %}">My Profile</a> |
+        <a href="{% url 'new_post' %}">New Post</a> |
+        <a href="{% url 'users' %}">All Users</a> |
+        <a href="{% url 'logout' %}">Log Out</a>
+    </nav>
+</header>
+<br>
 {% block body %}{% endblock %}
 {% block script %}{% endblock %}
 </body>

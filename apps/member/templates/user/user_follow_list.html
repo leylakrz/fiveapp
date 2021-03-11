@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block body %}
+    <h2>{{ title }} Of {{ profile_user_email }}</h2>
+
+    {#    * pending requests#}
+    {% if profile_user_email == user.get_username %}
+        <h3>Requests:</h3>
+        {% if request_objects %}
+            <ul>
+                {% for user_obj in request_objects %}
+                    <div style="display: flex;">
+                        <li><a href="{% url 'profile' user_obj.id %}">{{ user_obj }}</a></li>
+
+                        {% if f == 'er' %}
+                            <form method="post"
+                                  action="{% url 'follow_list' user.id %}?f={{ f }}&request_id={{ user_obj.id }}">
+                                {% csrf_token %}
+                                <input type="submit" name="accept" value="accept"><br>
+                                <input type="submit" name="decline" value="decline">
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            No Users.
+        {% endif %}
+        <br>
+
+        <h3>{{ title }}</h3>
+    {% endif %}
+
+
+    {#    * accepted requests#}
+    {% if user_objects %}
+        <ul>
+            {% for user_obj in user_objects %}
+                <li><a href="{% url 'profile' user_obj.id %}">{{ user_obj }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No Users.
+    {% endif %}
+
+{% endblock %}
