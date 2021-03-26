@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<form autocomplete="off" method="post" action="">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" VALUE="submit">
+</form>
+
+{% if message %}
+    <p>{{ message }}</p>
+    <form method="post" action="{% url 'sms_confirmation' user_id %}?send_sms=true">
+    {% csrf_token %}
+        <input type="submit" value="send again">
+    </form>
+{% endif %}
+</body>
+</html>

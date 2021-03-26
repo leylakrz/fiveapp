@@ -1,0 +1,25 @@
+.sug_parent {
+    position: relative;
+    margin-bottom: 80px;
+}
+
+.sug {
+    position: absolute;
+    z-index: 99;
+    overflow-y: auto;
+    /*max-height: 50px;*/
+    margin-left: 43px;
+}
+
+.sug div {
+    border: solid 1px black;
+    border-top: 0;
+    width: 162px;
+
+    background: white;
+}
+
+.sug div:hover {
+    cursor: pointer;
+    background: cornsilk;
+}

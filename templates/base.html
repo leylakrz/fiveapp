@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block style %}{% endblock %}
+</head>
+<body style="margin: 0; padding: 0;">
+<div style="display: flex; flex-direction: column">
+    <header style="background: cornsilk;  text-align: center; padding-bottom: 25px">
+        <h1>FiveApp</h1>
+        <p>Welcome, {{ user.get_username }}</p>
+
+        <nav>
+            <a href="{% url 'timeline' %}">Timeline</a> |
+            <a href="{% url 'profile' user.id %}">My Profile</a> |
+            <a href="{% url 'users' %}">All Users</a>
+        </nav>
+    </header>
+    <div style="display: flex;">
+        <aside style="width: 200px; height: 100vh; background: lavender; text-align: center;">
+            <a></a><br><br>
+            <a href="{% url 'new_post' %}">New Post</a><br><br>
+            <a href="{% url 'logout' %}">Log Out</a>
+        </aside>
+        <main style="padding: 25px">
+            {% block body %}{% endblock %}
+            {% block script %}{% endblock %}
+        </main>
+    </div>
+</div>
+</body>
+</html>
