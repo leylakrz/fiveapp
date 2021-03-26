@@ -129,8 +129,8 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'leyla.karzand@gmail.com'
-EMAIL_HOST_PASSWORD = '19977130'
+EMAIL_HOST_USER = 'your.email@gmail.com'
+EMAIL_HOST_PASSWORD = 'your password'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True
 
