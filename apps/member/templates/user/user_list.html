@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load messenger_tags %}
+
+{% block title %}All Users{% endblock %}
+
+{% block style %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'user/user_list.css' %}">
+{% endblock %}
+
+
+{% block body %}
+    <div class="sug_parent">
+        <form autocomplete="off" action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="email" placeholder="email" value="{{ email }}" class="search">
+            <input type="submit" VALUE="Search" class="submit">
+            <a href="{% url 'users' %}">
+                <button type="button" class="submit">Refresh</button>
+            </a>
+        </form>
+        <div class="sug"></div>
+    </div>
+
+
+    {% if user_list %}
+        <div class="total user"><span>total users: {{ count }}</span></div>
+        {% for user_obj in user_list %}
+
+            <a href="{% url 'profile' user_obj.id %}">
+                <div class="d-flex user">
+                    <div class="child1"></div>
+                    <div class="d-flex jc-sb child2">
+                        <span class="email">{{ user_obj.email }}</span>
+                        <span>Joined: {{ user_obj.age|custom_time_format }} Ago</span>
+                    </div>
+                </div>
+            </a>
+
+        {% endfor %}
+    {% else %}
+        no user found.
+    {% endif %}
+
+{% endblock %}
+
+
+{% block script %}
+    <script src='{% static 'user/user_list.js' %}'></script>
+{% endblock %}

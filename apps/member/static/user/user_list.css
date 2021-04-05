@@ -1,0 +1,79 @@
+.sug_parent {
+    position: relative;
+    margin-bottom: 80px;
+}
+
+.sug {
+    position: absolute;
+    z-index: 99;
+    overflow-y: auto;
+    /*max-height: 50px;*/
+    margin-left: 0px;
+}
+
+.sug div {
+    border: solid 1px black;
+    border-top: 0;
+    width: 306px;
+
+    background: white;
+}
+
+.sug div:hover {
+    cursor: pointer;
+    background: cornsilk;
+}
+
+.user {
+    width: 800px;
+    background: white;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 10px;
+}
+
+.user:hover {
+    width: 820px;
+}
+
+.total {
+    background: darkblue;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+}
+
+.total:hover {
+    width: 800px;
+}
+
+.email {
+    font-size: 20px;
+
+}
+
+.child1 {
+    content: none;
+    width: 10px;
+    height: 60px;
+    background: darkblue;
+}
+
+.child2 {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.search {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    margin: 0;
+}
+
+.submit {
+    height: 36px;
+    margin-left: 10px;
+    width: 80px;
+}

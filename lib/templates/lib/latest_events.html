@@ -1,0 +1,31 @@
+{% load messenger_tags %}
+
+
+{% for event in events %}
+    <div id="latest">
+        {% if event.type == 'like' %}
+            <span><a href="{% url 'profile' event.operator.id %}">{{ event.operator.email }}</a><br>
+                liked your post:<br>
+                <a
+                        href="{% url 'post' event.foreign_key|get_slug_by_post %}">{% get_title_by_post event.foreign_key %}</a></span>
+
+        {% elif event.type == 'comment' %}
+            <span><a href="{% url 'profile' event.operator.id %}">{{ event.operator.email }}</a><br>
+                commented on your post:<br>
+                <a
+                        href="{% url 'post' event.foreign_key|get_slug_by_comment %}">{% get_title_by_comment event.foreign_key %}</a></span>
+
+        {% elif event.type == 'follow' %}
+            <span><a href="{% url 'profile' event.operator.id %}">{{ event.operator.email }}</a><br>
+                requested for following
+                you.
+            </span><br>
+
+        {% else %}
+            <span><a href="{% url 'profile' event.operator.id %}">{{ event.operator.email }}</a><br>
+                accepted your request.
+            </span><br>
+
+        {% endif %}
+    </div>
+{% endfor %}

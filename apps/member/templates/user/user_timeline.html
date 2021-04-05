@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load messenger_tags %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user/user_timeline.css' %}">
+{% endblock %}
+
+{% block title %}FiveApp{% endblock %}
+
+
+{% block body %}
+    {% for post in posts %}
+        <div class="post">
+            <a href="{% url 'post' post.slug %}">
+                <div class="title">{{ post.title }}</div>
+            </a>
+            <div class="post_info">
+                <span>by <a href="{% url 'profile' post.publisher.id %}">{{ post.publisher.email }}</a></span>
+                <span>{{ post.age|custom_time_format }} Ago</span>
+            </div>
+
+            <a href="{% url 'post' post.slug %}">
+                <div class="post_content">
+                    {% if post.photo %}
+                        <img src="{{ post.photo.url }}" alt="picture for post {{ post.title }}">
+                    {% endif %}
+                    {% if post.content %}
+                        <div><span>{{ post.content|truncatewords:9 }}</span></div>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

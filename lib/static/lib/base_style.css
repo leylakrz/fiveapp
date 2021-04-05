@@ -1,0 +1,129 @@
+/* font */
+@font-face {
+    font-family: palanquin;
+    src: url('./font/palanquin-regular.ttf');
+}
+
+
+/* general */
+
+body {
+    font-family: palanquin;
+    background-color: #ddeefd;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.jc-sb {
+    justify-content: space-between;
+}
+
+.fs_19 {
+    font-size: 19px;
+}
+
+/* private */
+
+header {
+    background-color: #00008b;
+    text-align: center;
+    color: white;
+}
+
+header div {
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 100px;
+}
+
+header h1, header p {
+    margin: 0;
+}
+
+nav {
+    background: #ccccff;
+    text-align: center;
+    padding-left: 100px;
+    justify-content: space-between;
+    font-size: 18px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav div {
+    padding: 20px 0;
+}
+
+nav a {
+    color: black;
+}
+
+nav span:hover {
+    cursor: pointer;
+}
+
+#latest_nav {
+    padding-right: 100px;
+    width: 170px;
+    text-align: right;
+
+}
+
+main {
+    position: relative;
+}
+
+aside {
+    width: 250px;
+    background: rgba(255, 255, 255, 0.7);
+
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-top: -25px;
+    min-height: 100%;
+
+}
+
+.aside_child {
+    position: sticky;
+    top: 73px;
+    padding: 20px;
+}
+
+
+aside div div {
+    width: 210px;
+    color: black;
+    margin-bottom: 10px;
+    background: none;
+    border-bottom: solid 1px darkblue;
+    padding-bottom: 10px;
+}
+
+aside a {
+    font-weight: bold;
+}
+
+#aside_fix {
+    position: fixed;
+}
+
+main {
+    padding: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+

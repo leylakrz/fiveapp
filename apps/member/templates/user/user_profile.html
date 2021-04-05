@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load user_tags %}
+{% load messenger_tags %}
+
+{% block title %}{{ profile_user.email }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user/user_profile.css' %}">
+{% endblock %}
+
+
+{% block body %}
+    <div class="profile">
+        <div class="profile_head">
+            <h2>{{ profile_user.email }}</h2>
+
+            <div class="follow_stat">
+                <a href="{% url "follow_list" profile_user.id %}?f=er">{{ profile_user.id|follower_count }}</a>
+                <a href="{% url "follow_list" profile_user.id %}?f=ing">{{ profile_user.id|following_count }}</a>
+            </div>
+
+            {% if profile_user.id != user.id %}
+                <form method="post">
+                    {% csrf_token %}
+                    {% if following_status == None %}
+                        <input type="submit" name="follow" value="Follow" class="submit">
+                    {% elif not following_status %}
+                        <input type="submit" name="cancel_follow" value="Cancel Request" class="submit">
+                    {% else %}
+                        <input type="submit" name="unfollow" value="Unfollow" class="submit">
+                    {% endif %}
+                </form>
+
+            {% else %}
+                <div style="display: flex;">
+                    <form method="get" action="{% url 'update_info' user.id %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Update Information" class="submit">
+                    </form>
+                    <form method="post" action="{% url 'password_change' %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Change Password" class="submit">
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex profile_info">
+            <div>
+                <p><b>full name:</b> {{ profile_user.get_full_name|if_none }}</p>
+                <p><b>gender:</b> {{ profile_user.get_gender_display|if_none }}</p></div>
+            <div>
+                <p><b>Joined:</b> {{ profile_user.age|custom_time_format }} Ago</p>
+                <p><b>website:</b>
+                    {% if profile_user.website %}
+                        <a href="{{ profile_user.website }}">{{ profile_user.website }}</a>
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+
+        <div class="bio"><b>bio:</b> {{ profile_user.bio|if_none }}</div>
+
+
+    </div>
+    {% if posts %}
+        {% for post in posts %}
+            <a href="{% url 'post' post.slug %}">
+                <div class="d-flex profile_post">
+                    {% if post.photo %}
+                        <img src="{{ post.photo.url }}" alt="picture for post {{ post.title }}">
+                    {% else %}
+                        <div class="no_pic"></div>
+                    {% endif %}
+                    <div class="d-flex profile_post_info">
+                        <span>{{ post.title }}</span>
+                        <span class="since">{{ post.age|custom_time_format }} Ago</span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="profile_post no-post">
+            No Post Yet
+        </div>
+    {% endif %}
+
+{% endblock %}

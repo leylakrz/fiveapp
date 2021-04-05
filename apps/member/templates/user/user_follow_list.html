@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user/user_follow_list.css' %}">
+
+{% endblock %}
+
+
+{% block body %}
+    <h2>{{ title }} Of <br>{{ profile_user_email }}</h2>
+
+    {# * pending requests: #}
+    {% if profile_user_email == user.get_username %}
+        <h3>Requests:</h3>
+        {% if request_objects %}
+            {% for user_obj in request_objects %}
+                <a href="{% url 'profile' user_obj.id %}">
+                    <div class="d-flex user">
+                        <div class="child1"></div>
+                        <div class="d-flex jc-sb child2">
+                            {{ user_obj.email }}
+
+
+                            {% if f == 'er' %}
+                                <form class="request_form" method="post"
+                                      action="{% url 'follow_list' user.id %}?f={{ f }}&request_id={{ user_obj.id }}">
+                                    {% csrf_token %}
+                                    <input type="submit" name="accept" value="accept" class="submit accept"><br>
+                                    <input type="submit" name="decline" value="decline" class="submit decline">
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+
+            {% endfor %}
+
+        {% else %}
+            <span class="user no_user">No User.</span>
+        {% endif %}
+
+
+        <h3 class="second_h3">{{ title }}</h3>
+    {% endif %}
+
+
+    {# * accepted requests#}
+    {% if user_objects %}
+        {% for user_obj in user_objects %}
+            <a href="{% url 'profile' user_obj.id %}">
+                <div class="d-flex user">
+                    <div class="child1"></div>
+                    <div class="d-flex jc-sb child2">
+                        {{ user_obj.email }}
+                    </div>
+
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <span class="user no_user">No User.</span>
+    {% endif %}
+
+{% endblock %}

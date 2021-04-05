@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/pre_login_base.css' %}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+<header>
+    <h1>FiveApp</h1>
+</header>
+<main>
+    {% block main %}
+    {% endblock %}
+</main>
+</body>
+</html>

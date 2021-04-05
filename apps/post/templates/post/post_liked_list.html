@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ task.title }}{% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'post/post_liked_list.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    <a href="{% url 'post' slug %}" class="d-flex user post_link">
+        <span>Go back to post <b>"{{ title }}"</b></span>
+    </a>
+    {% for user_obj in liked_list %}
+        <a href="{% url 'profile' user_obj.id %}">
+            <div class="d-flex user">
+                <div class="child1"></div>
+                <span class="d-flex jc-sb child2">{{ user_obj }}</span>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}

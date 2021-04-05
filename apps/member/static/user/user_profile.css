@@ -1,0 +1,101 @@
+.profile {
+    background: white;
+    width: 800px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 25px;
+    margin-bottom: 10px;
+}
+
+.profile a {
+    font-weight: bold;
+    color: darkblue !important;
+}
+
+.profile_head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: inherit;
+}
+
+.profile_head h2 {
+    margin-bottom: 10px !important;
+}
+
+.follow_stat {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+
+.profile_info {
+    justify-content: space-between;
+    width: 550px;
+    margin-top: 20px;
+}
+
+.profile_info p {
+    margin: 5px 0;
+}
+
+.profile_info div {
+    width: 250px;
+}
+
+.bio {
+    text-align: left;
+    width: 550px;
+}
+
+
+.profile_post {
+    background: white;
+    width: 800px;
+    margin-top: 10px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.profile_post:hover {
+    width: 820px;
+}
+
+.no_pic {
+    background: darkblue;
+    width: 60px;
+    height: 60px;
+}
+
+img {
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.profile_post_info {
+    width: 740px;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: black;
+}
+
+.since {
+    font-weight: normal;
+    margin-right: 10px;
+}
+
+.no-post {
+    font-size: 20px;
+    text-align: center;
+}
+
+.submit {
+    height: 36px;
+    margin-left: 10px;
+    font-size: 17px;
+}

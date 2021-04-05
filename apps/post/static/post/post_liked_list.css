@@ -1,0 +1,32 @@
+.user {
+    width: 800px;
+    background: white;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 15px;
+    font-size: 19px;
+
+}
+
+.user:hover {
+    width: 820px;
+}
+
+.child1 {
+    content: none;
+    width: 10px;
+    height: 60px;
+    background: darkblue;
+}
+
+.child2 {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.post_link {
+    justify-content: center;
+    border-radius: 20px;
+    margin: 20px 0 30px 0;
+    border: solid 5px darkblue;
+}

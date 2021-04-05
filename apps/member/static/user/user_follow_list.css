@@ -1,0 +1,72 @@
+h2, h3 {
+    width: 800px;
+    background: darkblue;
+    color: white;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+    padding: 15px 0;
+}
+
+h3 {
+    background: white;
+    color: darkblue;
+    border: solid 1px darkblue;
+    margin: 0 0 15px 0;
+    font-size: 21px;
+}
+
+.second_h3 {
+    margin-top: 25px;
+}
+
+.user {
+    width: 800px;
+    background: white;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 15px;
+    font-size: 19px;
+
+}
+
+.user:hover {
+    width: 820px;
+}
+
+.child1 {
+    content: none;
+    width: 10px;
+    height: 60px;
+    background: darkblue;
+}
+
+.child2 {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.no_user {
+    text-align: center;
+    /*border-radius: 0 0 20px 20px;*/
+
+}
+
+.request_form {
+    display: flex;
+    align-items: center;
+}
+
+.submit {
+    height: 36px;
+    margin-left: 10px;
+    font-size: 17px;
+    width: 170px;
+}
+
+.accept {
+    background: lightgreen;
+}
+
+.decline {
+    background: #f58282;
+}

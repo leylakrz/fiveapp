@@ -1,0 +1,42 @@
+{% extends 'lib/pre_login_base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block style %}
+    <style>
+        .main_child {
+            margin-top: 70px;
+            width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 80px 0 80px 0;
+            border-radius: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="main_child">
+
+    <form autocomplete="off" method="post" action="{% url 'sms_confirmation' user_id %}">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" VALUE="submit">
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <br><br>
+    <form method="post" action="{% url 'sms_confirmation' user_id %}?send_again=true">
+        {% csrf_token %}
+        <input type="submit" value="send the code again">
+    </form>
+
+
+{% endblock %}
+</div>
+

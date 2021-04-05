@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load  messenger_tags %}
+{% load post_tags %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'post/post_detail.css' %}">
+
+{% endblock %}
+
+
+{% block body %}
+    <div class="post_detail">
+        <h2>{{ post.title }}</h2>
+        <div class="d-flex jc-sb post_detail_info">
+            <span>By <a href="{% url 'profile' post.publisher.id %}">{{ post.publisher.email }}</a></span>
+            <span>Published {{ post.age|custom_time_format }} Ago</span>
+        </div>
+
+        <div class="post_detail_content">
+            {% if post.photo %}
+                <div><img src="{{ post.photo.url }}"></div>
+            {% endif %}
+
+            <span class="ta_j">{{ post.content }}</span>
+        </div>
+
+
+        <a href="{% url 'likes' post.slug %}">
+            <div class="post_detail_like_count">Likes: {% like_count post.liked %}</div>
+        </a>
+
+
+        <div class="post_detail_like post_detail_like_count">
+            <form method="post">
+                {% csrf_token %}
+                {% if post.publisher.id != user.id and user not in post.liked.all %}
+                    <input type="submit" value="Like" name="like" class="post_detail_submit">
+                {% elif user in post.liked.all %}
+                    <input type="submit" value="Unlike" name="unlike" class="post_detail_submit">
+                {% endif %}
+            </form>
+
+
+            {% if post.publisher == user %}
+                <form method="post">
+                    {% csrf_token %}
+                    <a href="{% url 'post_edit' post.slug %}">
+                        <button type="button" class="post_detail_submit">edit</button>
+                    </a>
+                    <a href="{% url 'post_delete' post.slug %}">
+                        <button type="button" class="post_detail_submit">delete</button>
+                    </a>
+                </form>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="comment_form">
+        <h3>Add a Comment</h3>
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><b>Title:</b></td>
+                    <td><input type="text" name="title" style="width: 250px;"></td>
+                </tr>
+                <tr>
+                    <td><b>content:</b></td>
+                    <td>
+                    <textarea name="content" cols="40" rows="10" required=""
+                              style="height: 150px; width: 250px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" VALUE="Add" name="comment" class="post_detail_submit">
+                        <a href="{% url 'post' post.slug %}">
+                            <button type="button" class="post_detail_submit">Refresh</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <h3>Comments</h3>
+    {% if comments %}
+        {% for comment in comments %}
+            <div class="comment">
+                <div class="comment_info">
+                    <span class="comment_publisher">by <a
+                            href="{% url 'profile' comment.publisher.id %}">{{ comment.publisher.email }}</a></span>
+                    <span>published: {{ comment.age|custom_time_format }} Ago</span>
+                </div>
+                {% if user == comment.publisher %}
+                    <div class="bc-lavender">
+                {% endif %}
+                <div class="ta_j comment_content">
+                    <b>{{ comment.title }}</b><br>
+                    <span>{{ comment.content }}</span>
+                </div>
+                {% if user == comment.publisher %}
+                    </div>
+                {% endif %}
+
+                {% if user == comment.publisher %}
+                    <div class="comment_delete bc-lavender">
+                        <form method="post" action="{% url 'post' post.slug %}?comment={{ comment.id }}">
+                            {% csrf_token %}
+                            <input type="submit" name="delete_comment" value="Delete" class="post_detail_submit">
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <span class="no_comment">no comments.</span>
+    {% endif %}
+
+{% endblock %}

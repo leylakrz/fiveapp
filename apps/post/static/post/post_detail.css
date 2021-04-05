@@ -1,0 +1,154 @@
+.ta_j {
+    text-align: justify;
+}
+
+.bc-lavender {
+    background: #ccccff;
+
+}
+
+.post_detail {
+    width: 1000px;
+    background: white;
+    border-radius: 20px;
+    font-size: 20px;
+    border-bottom: solid 1px darkblue;
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin: 0;
+    background: darkblue;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    font-size: 27px !important;
+}
+
+.post_detail_info {
+    padding: 10px 30px;
+    border-bottom: solid 1px darkblue;
+}
+
+.post_detail_content {
+    padding: 30px;
+    padding-bottom: 25px;
+}
+
+.post_detail_content div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+img {
+    max-height: 500px;
+    max-width: 940px;
+    margin-right: 20px;
+}
+
+.post_detail_like_count {
+    background: darkblue;
+    color: white;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.post_detail_like {
+    background: #ccccff;
+    border-radius: 0 0 20px 20px;
+    padding-bottom: 20px;
+}
+
+.post_detail_submit {
+    height: 36px;
+    width: 80px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 2px;
+}
+
+.comment_form {
+    width: 1000px;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+    margin: 30px 0 60px 0;
+    border-bottom: solid 1px darkblue;
+}
+
+h3 {
+    background: darkblue;
+    color: white;
+    margin: 0 0 20px 0;
+    width: 980px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+    padding: 10px;
+}
+
+.comment {
+    background: white;
+    margin-bottom: 30px;
+    width: 1000px;
+    border-radius: 20px 0;
+    border-bottom: none;
+    font-size: 20px;
+}
+
+.comment_info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    border-radius: 20px 0;
+    border-bottom: solid 1px darkblue;
+}
+
+.comment_info a {
+    font-weight: bold;
+}
+
+.comment_info a:hover {
+    text-shadow: 2px 2px green;
+}
+
+.comment_info span {
+    padding: 10px;
+}
+
+.comment_publisher {
+    border-right: solid 1px darkblue;
+    background: darkblue;
+    color: white;
+    border-radius: 20px 0 0 0;
+}
+
+.comment_content {
+    background: white;
+    padding: 10px 60px;
+    border-bottom: solid 1px darkblue;
+    border-radius: 0 0 20px 0;
+}
+
+.comment_delete {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    border-radius: 0 0 20px 0;
+    border-bottom: solid 1px darkblue;
+
+}
+
+.no_comment {
+    background: white;
+    font-size: 20px;
+    width: 1000px;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 20px 0;
+}

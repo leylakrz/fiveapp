@@ -1,0 +1,64 @@
+{% load static %}
+{% load messenger_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block style %}{% endblock %}
+    <style>
+        html, body {
+            height: auto;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/base_style.css' %}">
+</head>
+<body style="margin: 0; padding: 0;">
+<div style="display: flex; flex-direction: column">
+    <header>
+        <div class="d-flex">
+            <h1>FiveApp</h1>
+            <p class="fs_19">Welcome, {{ user.get_username }}</p>
+        </div>
+    </header>
+    <nav class="d-flex fs_19">
+        <div>
+            <a href="{% url 'timeline' %}">Timeline</a> |
+            <a href="{% url 'profile' user.id %}">My Profile</a> |
+            <a href="{% url 'new_post' %}">New Post</a> |
+            <a href="{% url 'users' %}">All Users</a> |
+            <a href="{% url 'logout' %}">Log Out</a>
+        </div>
+        <div id="latest_nav">Latest Events</div>
+    </nav>
+    <div class="d-flex">
+
+        <main>
+            {% block body %}{% endblock %}
+            {% block script %}{% endblock %}
+
+            <aside id="aside">
+                <div class="aside_child">
+                    {% latest_events user %}
+                </div>
+            </aside>
+        </main>
+
+
+    </div>
+
+    <script>
+        var aside = document.getElementById('aside')
+        var latest = document.getElementById('latest_nav')
+        document.querySelector('#latest_nav').addEventListener('click', (event) => {
+            if (aside.style.display === '') {
+                aside.style.display = 'flex'
+            } else {
+                aside.style.display = ''
+            }
+        })
+    </script>
+</div>
+</body>
+</html>
